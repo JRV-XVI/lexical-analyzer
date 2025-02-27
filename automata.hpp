@@ -8,35 +8,25 @@ class Automata {
 public:
   Node *node;
 
-  Automata(Node &node) { this->node = &node; }
+  Automata(Node &node) : node(&node) {}
 
-  bool validation(std::string word) {
+  bool validation(std::string &word) {
     bool result = false;
-    if (word.empty() || word == "") {
-      if (node->isFinal) {
-        return true;
-      } else {
-        return false;
-      }
-    }
     Node *currentNode = node;
-    for (unsigned i = 0; i < word.length(); i++) {
-      std::string symbol;
-      if (i != 0) {
-        symbol = word.substr(i, i + 1);
-      } else {
-        symbol = word[i];
-      }
-      std::cout << symbol << std::endl;
-      *currentNode = currentNode->getNextNode(symbol);
+
+    if (word.empty()) {
+      return node->isFinal;
+    }
+    
+    for (char character : word) {
+      std::string symbol(1, character);
+      std::cout << "New character..." << symbol << std::endl;
+      currentNode = currentNode->getNextNode(symbol);
       if (currentNode == nullptr) {
         return false;
       }
-      if (currentNode->isFinal) {
-        result = true;
-      } else {
-        result = false;
-      }
+      result = currentNode->isFinal ? true : false;
+      std::cout << *currentNode << std::endl;
     }
     return result;
   }
