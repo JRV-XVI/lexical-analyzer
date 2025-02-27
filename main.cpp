@@ -21,7 +21,7 @@ int main() {
 
   Automata automaton(S);
 
-  std::string word = "abb";
+  std::string word = "aaababbbababbbaa";
   bool res = automaton.validation(word);
 
   std::cout << res << std::endl;

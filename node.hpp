@@ -16,7 +16,8 @@ public:
   // Methods
   Node() = default;
 
-  Node(std::string name, bool isFinal, bool isDeathState) : name(name), isFinal(isFinal), isDeathState(isDeathState) {}
+  Node(std::string name, bool isFinal, bool isDeathState)
+      : name(name), isFinal(isFinal), isDeathState(isDeathState) {}
 
   void addTransition(const std::string &symbol, Node *node) {
     transition[symbol] = node;
@@ -24,7 +25,7 @@ public:
   Node *getNextNode(const std::string &symbol) {
     if (transition.find(symbol) != transition.end()) {
       return transition[symbol];
-    } 
+    }
     return nullptr;
   }
 
