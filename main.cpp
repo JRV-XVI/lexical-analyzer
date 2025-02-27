@@ -17,10 +17,11 @@ int main() {
   std::cout << S << std::endl;
   std::cout << B << std::endl;
   std::cout << BB << std::endl;
+  std::cout << B.transition["a"] << std::endl;
   
   Automata automaton(S);
   
-  std::string word = "aabbb";
+  std::string word = "abb";
   bool res = automaton.validation(word);
   
   std::cout << res << std::endl;

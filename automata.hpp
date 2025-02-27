@@ -20,8 +20,13 @@ public:
       }
     }
     Node *currentNode = node;
-    for (unsigned i = 0; i < word.length(); ++i) {
-      std::string symbol = word.substr(i, i + 1);
+    for (unsigned i = 0; i < word.length(); i++) {
+      std::string symbol;
+      if (i != 0) {
+        symbol = word.substr(i, i + 1);
+      } else {
+        symbol = word[i];
+      }
       std::cout << symbol << std::endl;
       *currentNode = currentNode->getNextNode(symbol);
       if (currentNode == nullptr) {
