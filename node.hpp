@@ -11,21 +11,22 @@ public:
   std::string name;
   bool isFinal;
   bool isDeathState;
-  std::map<std::string, Node> transition;
+  std::map<std::string, Node *> transition;
 
   // Methods
   Node() = default;
 
-  Node(std::string name, bool isFinal, bool isDeathState) {
-    this->name = name;
-    this->isFinal = isFinal;
-    this->isDeathState = isDeathState;
-  }
+  Node(std::string name, bool isFinal, bool isDeathState) : name(name), isFinal(isFinal), isDeathState(isDeathState) {}
 
-  void addTransition(std::string symbol, Node node) {
+  void addTransition(const std::string &symbol, Node *node) {
     transition[symbol] = node;
   }
-  Node getNextNode(const std::string symbol) { return transition.at(symbol); }
+  Node *getNextNode(const std::string &symbol) {
+    if (transition.find(symbol) != transition.end()) {
+      return transition[symbol];
+    } 
+    return nullptr;
+  }
 
   friend std::ostream &operator<<(std::ostream &os, const Node &node) {
     os << "{" << node.name << node.isFinal << node.isDeathState << "}";
