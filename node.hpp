@@ -1,10 +1,8 @@
 #ifndef NODE_HPP
 #define NODE_HPP
 
-#include <hash_map>
 #include <map>
 #include <ostream>
-#include <string>
 #include <string>
 
 class Node {
@@ -27,9 +25,7 @@ public:
   void addTransition(std::string symbol, Node node) {
     transition[symbol] = node;
   }
-  const Node getNextNode(const std::string symbol) {
-    return transition.at(symbol);
-  }
+  Node getNextNode(const std::string symbol) { return transition.at(symbol); }
 
   friend std::ostream &operator<<(std::ostream &os, const Node &node) {
     os << "{" << node.name << node.isFinal << node.isDeathState << "}";

@@ -20,6 +20,8 @@ The arithmetic expressions should only contain the following tokens:
   - `)` (right parenthesis)
 
 ## Main Function
-The main function must have the following signature:
-```cpp
-void lexer(string filepath);
+You can code any auxiliary function you want but the main function must have the following signature (could change depending on the programming language):
+
+void lexer(string filepath):
+
+where filepath is the path to the file that contains the expressions, for example, expressions.txt.
