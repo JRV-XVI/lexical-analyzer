@@ -1,7 +1,7 @@
 #ifndef NODE_HPP
 #define NODE_HPP
 
-#include <map>
+#include <unordered_map>
 #include <ostream>
 #include <string>
 
@@ -11,7 +11,7 @@ public:
   std::string name;
   bool isFinal;
   bool isDeathState;
-  std::map<std::string, Node *> transition;
+  std::unordered_map<std::string, Node *> transition;
 
   // Methods
   Node() = default;

@@ -1,8 +1,10 @@
 #include "automata.hpp"
 #include "node.hpp"
+#include "utilities.hpp"
 #include <iostream>
 
 int main() {
+  lexer("expressions.txt");
   Node S("S", false, false);
   Node B("B", false, true);
   Node BB("BB", true, false);
@@ -21,7 +23,7 @@ int main() {
 
   Automata automaton(S);
 
-  std::string word = "aaababbbababbbaa";
+  std::string word = "aabba";
   bool res = automaton.validation(word);
 
   std::cout << res << std::endl;
