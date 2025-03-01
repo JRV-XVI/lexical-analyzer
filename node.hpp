@@ -19,6 +19,10 @@ public:
   Node(std::string name, bool isFinal, bool isDeathState)
       : name(name), isFinal(isFinal), isDeathState(isDeathState) {}
 
+  void addTransition(std::string &symbol, Node *node) {
+    transition[symbol] = node;
+  }
+
   void addTransition(const std::string &symbol, Node *node) {
     transition[symbol] = node;
   }

@@ -46,11 +46,8 @@ void lexer(std::string filepath) {
   for (int i = 0; i < words.size(); i++) {
     std::cout << "Word " << (i + 1) << ": " << words[i] << std::endl;
   }
-  
-  for (unsigned i = 0; i < words.size(); ++i) {
-    
-  }
-  void readCSV(std::string filepath) {
 
+  for (unsigned i = 0; i < words.size(); ++i) {
   }
 }
+void readCSV(std::string filepath) { return; }
