@@ -2,7 +2,9 @@
 ## How to run the program
 You must compile `main.cpp` and `utilities.cpp` to be able to run the program.
 The commands run compile it and run it at best performence: 
+
 `g++ -O3 main.cpp utilities.cpp -o main`
+
 `./main`
 
 ## Summary
