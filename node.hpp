@@ -1,9 +1,9 @@
 #ifndef NODE_HPP
 #define NODE_HPP
 
-#include <unordered_map>
 #include <ostream>
 #include <string>
+#include <unordered_map>
 
 class Node {
 public:

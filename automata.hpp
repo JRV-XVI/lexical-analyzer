@@ -20,7 +20,7 @@ private:
   std::unordered_map<std::string, std::string> types;
 
 public:
-  Automata(){
+  Automata() {
     // Initiaization
     types["integer"] = "integer";
     types["decimal"] = "float";
@@ -49,34 +49,37 @@ public:
 
     for (char c : operatorSymbols) {
       std::string symbol(1, c);
-      start->addTransition(symbol, variable);
+      start->addTransition(symbol, operators);
     }
   }
 
   std::vector<std::string> analize(std::string input) {
-    std::vector<std::string> tokens;
+    std::vector<std::string> values;
     std::string word;
     Node *currentNode = start;
-    for (unsigned i = 0; i < input.length(); ++i) {
-      char symbol = input[i];
-
-      if (currentNode->getNextNode(std::string(1, symbol)) != nullptr) {
-        currentNode = currentNode->getNextNode(std::string(1, symbol));
+    for (char symbol : input) {
+      std::string strSymbol(1, symbol);
+      Node *nextNode = currentNode->getNextNode(strSymbol);
+      if (nextNode != nullptr) {
+        currentNode = nextNode;
         word.push_back(symbol);
-      } else {
-        if (currentNode->isFinal) {
-          tokens.push_back(std::string(1, symbol));
-          word = "";
-          currentNode = start;
-          continue;
-        } else {
-          tokens.push_back("Error");
-          word = "";
-          currentNode = start;
+      } else if (currentNode->isFinal) {
+        if (!word.empty()) {
+          values.push_back(word);
+        }
+        word.clear();
+        currentNode = start;
+        if (currentNode->getNextNode(strSymbol) != nullptr) {
+          word.push_back(symbol);
+          currentNode = currentNode->getNextNode(strSymbol);
         }
       }
     }
-    return tokens;
+
+    if (!word.empty() && currentNode->isFinal) {
+      values.push_back(word);
+    }
+    return values;
   }
 };
 
