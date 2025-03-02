@@ -50,4 +50,3 @@ void lexer(std::string filepath) {
   for (unsigned i = 0; i < words.size(); ++i) {
   }
 }
-void readCSV(std::string filepath) { return; }
