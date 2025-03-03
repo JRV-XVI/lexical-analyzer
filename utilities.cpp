@@ -1,10 +1,11 @@
+#include "automata.hpp"
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <vector>
 
-// Function to read a text file and print its contents as individual words
+// Function to read a text file and print its contents using the Automata class
 void lexer(std::string filepath) {
   std::ifstream file(filepath);
 
@@ -20,8 +21,7 @@ void lexer(std::string filepath) {
   // Process each line
   while (std::getline(file, line)) {
     // Skip empty lines
-    if (line.empty() ||
-        line.find_first_not_of(" \t\n\r") == std::string::npos) {
+    if (line.empty() || line.find_first_not_of(" \t\n\r") == std::string::npos) {
       continue;
     }
 
@@ -39,14 +39,20 @@ void lexer(std::string filepath) {
 
   file.close();
 
-  // Print all words
-  std::cout << "Words in file:" << std::endl;
-  std::cout << "-------------" << std::endl;
+  //instance of Automata class
+  Automata automata;
 
-  for (int i = 0; i < words.size(); i++) {
-    std::cout << "Word " << (i + 1) << ": " << words[i] << std::endl;
-  }
+  // Print all words and their analysis
+  /*std::cout << "Words in file and their analysis:" << std::endl;
+  std::cout << "--------------------------------" << std::endl;*/
 
-  for (unsigned i = 0; i < words.size(); ++i) {
+  for (int i = 0; i < words.size(); ++i) {
+    //analyze the word using the Automata class
+    std::vector<std::pair<std::string, std::string>> analysis = automata.analyze(words[i]);
+
+    //print the analysis results
+    for(const auto& result : analysis) {
+      std::cout << result.first << ": " << result.second << std::endl;
+    }
   }
 }
