@@ -4,7 +4,6 @@
 #include "node.hpp"
 #include <array>
 #include <string>
-#include <tuple>
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -13,37 +12,22 @@ class Automata {
 private:
   Node *start = new Node("start", false, false);
   Node *integer = new Node("integer", true, false);
-  Node *decimal = new Node("decimal", true, false);
-  Node *variable = new Node("variables", true, false);
+  Node *decimal = new Node("float", true, false);
+  Node *variable = new Node("variable", true, false);
   Node *operators = new Node("operator", true, false);
   Node *assigment = new Node("assigment", true, false);
   Node *sum = new Node("sum", true, false);
   Node *subtract = new Node("subtract", true, false);
   Node *product = new Node("product", true, false);
   Node *division = new Node("division", true, false);
-  Node *parenthesis = new Node("parenthesis", true, false);
-  Node *rightParentesis = new Node("rightParentesis", true, false);
-  Node *leftParentesis = new Node("leftParentesis", true, false);
-  Node *error = new Node("error", false, true);
+  Node *rightParentesis = new Node("right parentesis", true, false);
+  Node *leftParentesis = new Node("left parentesis", true, false);
   std::array<char, 5> operatorSymbols{'=', '+', '-', '*', '/'};
   std::unordered_map<std::string, std::string> types;
 
 public:
   Automata() {
-    // Initiaization
-    types["integer"] = "integer";
-    types["decimal"] = "float";
-    types["variables"] = "variables";
-    types["assigment"] = "assigment";
-    types["sum"] = "sum";
-    types["subtract"] = "subtract";
-    types["product"] = "product";
-    types["division"] = "division";
-    types["rightParentesis"] = "right parentesis";
-    types["leftParentesis"] = "left parentesis";
-
     // Transitions
-    start->addTransition(".", error);
     start->addTransition("(", leftParentesis);
     start->addTransition(")", rightParentesis);
     integer->addTransition(".", decimal);
@@ -95,17 +79,17 @@ public:
       } else if (currentNode->isFinal) {
         if (!word.empty()) {
           std::pair<std::string, std::string> wordValue = {
-              word, types[currentNode->name]}; // pair that contains the
-                                               // accumulated word and its type
-          values.push_back(wordValue); // add the pair to the values vector
+              word, currentNode->name}; // pair that contains the
+                                        // accumulated word and its type
+          values.push_back(wordValue);  // add the pair to the values vector
         }
         word.clear(); // clear the 'word' string
         currentNode =
             start; // reset current node to the start node (initial state)
-        if (currentNode->getNextNode(strSymbol) !=
-            nullptr) { // if there's a valid transition from the start node with
-                       // the current symbol:
-          word.push_back(symbol); // update word
+        nextNode = currentNode->getNextNode(strSymbol); // point to next node from new reseted current node
+        if (nextNode != nullptr) { // if there's a valid transition from the
+                                   // start node with the current symbol:
+          word.push_back(symbol);  // update word
           currentNode =
               currentNode->getNextNode(strSymbol); // update current node
         }
@@ -116,9 +100,9 @@ public:
         currentNode->isFinal) { // check if anything remains in 'word' and if
                                 // the current node is a final state
       std::pair<std::string, std::string> wordValue = {
-          word, types[currentNode->name]}; // pair with the remaining 'word' and
-                                           // its type
-      values.push_back(wordValue); // add the pair to values
+          word, currentNode->name}; // pair with the remaining 'word' and
+                                    // its type
+      values.push_back(wordValue);  // add the pair to values
     }
     return values;
   }
