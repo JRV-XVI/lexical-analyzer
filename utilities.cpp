@@ -21,7 +21,8 @@ void lexer(std::string filepath) {
   // Process each line
   while (std::getline(file, line)) {
     // Skip empty lines
-    if (line.empty() || line.find_first_not_of(" \t\n\r") == std::string::npos) {
+    if (line.empty() ||
+        line.find_first_not_of(" \t\n\r") == std::string::npos) {
       continue;
     }
 
@@ -39,7 +40,7 @@ void lexer(std::string filepath) {
 
   file.close();
 
-  //instance of Automata class
+  // instance of Automata class
   Automata automata;
 
   // Print all words and their analysis
@@ -47,11 +48,12 @@ void lexer(std::string filepath) {
   std::cout << "--------------------------------" << std::endl;*/
 
   for (int i = 0; i < words.size(); ++i) {
-    //analyze the word using the Automata class
-    std::vector<std::pair<std::string, std::string>> analysis = automata.analyze(words[i]);
+    // analyze the word using the Automata class
+    std::vector<std::pair<std::string, std::string>> analysis =
+        automata.analyze(words[i]);
 
-    //print the analysis results
-    for(const auto& result : analysis) {
+    // print the analysis results
+    for (const auto &result : analysis) {
       std::cout << result.first << ": " << result.second << std::endl;
     }
   }

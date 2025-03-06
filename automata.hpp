@@ -2,9 +2,9 @@
 #define AUTOMATA_HPP
 
 #include "node.hpp"
-#include <tuple>
 #include <array>
 #include <string>
+#include <tuple>
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -76,35 +76,49 @@ public:
       }
     }
   }
-  
+
   // Analyze string and checks if is valid on the automata
   std::vector<std::pair<std::string, std::string>> analyze(std::string input) {
-    std::vector<std::pair<std::string, std::string>> values; //vector to store the final result
-    std::string word; //variable that accumulates characters to complete a string
-    Node *currentNode = start; //pointer to keep track of the current state
+    std::vector<std::pair<std::string, std::string>>
+        values; // vector to store the final result
+    std::string
+        word; // variable that accumulates characters to complete a string
+    Node *currentNode = start; // pointer to keep track of the current state
     for (char symbol : input) {
-      std::string strSymbol(1, symbol); //convert the current character (symbol) to string
-      Node *nextNode = currentNode->getNextNode(strSymbol); //find next state from the current node
+      std::string strSymbol(
+          1, symbol); // convert the current character (symbol) to string
+      Node *nextNode = currentNode->getNextNode(
+          strSymbol); // find next state from the current node
       if (nextNode != nullptr) {
-        currentNode = nextNode; //update the current node to next node
-        word.push_back(symbol); //append the current symbol to 'word' string
+        currentNode = nextNode; // update the current node to next node
+        word.push_back(symbol); // append the current symbol to 'word' string
       } else if (currentNode->isFinal) {
         if (!word.empty()) {
-          std::pair<std::string, std::string> wordValue = {word, types[currentNode->name]}; //pair that contains the accumulated word and its type
-          values.push_back(wordValue); //add the pair to the values vector
+          std::pair<std::string, std::string> wordValue = {
+              word, types[currentNode->name]}; // pair that contains the
+                                               // accumulated word and its type
+          values.push_back(wordValue); // add the pair to the values vector
         }
-        word.clear(); //clear the 'word' string
-        currentNode = start; //reset current node to the start node (initial state)
-        if (currentNode->getNextNode(strSymbol) != nullptr) { //if there's a valid transition from the start node with the current symbol:
-          word.push_back(symbol); //update word
-          currentNode = currentNode->getNextNode(strSymbol); //update current node
+        word.clear(); // clear the 'word' string
+        currentNode =
+            start; // reset current node to the start node (initial state)
+        if (currentNode->getNextNode(strSymbol) !=
+            nullptr) { // if there's a valid transition from the start node with
+                       // the current symbol:
+          word.push_back(symbol); // update word
+          currentNode =
+              currentNode->getNextNode(strSymbol); // update current node
         }
       }
     }
 
-    if (!word.empty() && currentNode->isFinal) { //check if anything remains in 'word' and if the current node is a final state
-      std::pair<std::string, std::string> wordValue= {word, types[currentNode->name]}; //pair with the remaining 'word' and its type
-      values.push_back(wordValue); //add the pair to values
+    if (!word.empty() &&
+        currentNode->isFinal) { // check if anything remains in 'word' and if
+                                // the current node is a final state
+      std::pair<std::string, std::string> wordValue = {
+          word, types[currentNode->name]}; // pair with the remaining 'word' and
+                                           // its type
+      values.push_back(wordValue); // add the pair to values
     }
     return values;
   }
