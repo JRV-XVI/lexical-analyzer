@@ -14,7 +14,6 @@ private:
   Node *integer = new Node("integer", true, false);
   Node *decimal = new Node("float", true, false);
   Node *variable = new Node("variable", true, false);
-  Node *operators = new Node("operator", true, false);
   Node *assigment = new Node("assigment", true, false);
   Node *sum = new Node("sum", true, false);
   Node *subtract = new Node("subtract", true, false);
@@ -86,7 +85,8 @@ public:
         word.clear(); // clear the 'word' string
         currentNode =
             start; // reset current node to the start node (initial state)
-        nextNode = currentNode->getNextNode(strSymbol); // point to next node from new reseted current node
+        nextNode = currentNode->getNextNode(
+            strSymbol); // point to next node from new reseted current node
         if (nextNode != nullptr) { // if there's a valid transition from the
                                    // start node with the current symbol:
           word.push_back(symbol);  // update word
